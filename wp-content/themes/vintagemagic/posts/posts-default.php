@@ -31,18 +31,7 @@ get_header();
 			cfct_misc('nav-posts');
 
 			?>
-			<ul id="list-article">
-				<li>
-					<img src="<?php bloginfo('template_url') ?>/images/img-3.jpg" alt="" />
-					<h3><a href="#">Vestibulum Luctus Nulla Nec</a></h3>
-					<p>Donec lacinia tortor sem, eget lobortis diam tempor euismod. Vestibulum lorem sem, aliquet quis leo at, sodales accumsan odio. <a href="#">See More &gt;&gt;</a></p>
-				</li>
-				<li>
-					<img src="<?php bloginfo('template_url') ?>/images/img-3.jpg" alt="" />
-					<h3><a href="#">Vestibulum Luctus Nulla Nec</a></h3>
-					<p>Donec lacinia tortor sem, eget lobortis diam tempor euismod. Vestibulum lorem sem, aliquet quis leo at, sodales accumsan odio. <a href="#">See More &gt;&gt;</a></p>
-				</li>
-			</ul>
+			
 			<div class="category-row">
 				<h2>Category 1</h2>
 				<ul class="list-category">

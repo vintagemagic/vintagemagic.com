@@ -69,7 +69,7 @@ $blog_desc = get_bloginfo('description');
 			<li><a href="#">Dark Confidant $47</a></li>
 			<li class="last"><a href="#">Inkmoth Nexus $4.2</a></li>
 		</ul>
-		<a href="#" id="logo">Vintage Magic</a>
+		<a href="/" id="logo">Vintage Magic</a>
 		<div id="header-content">
 			<ul id="nav-member">
 				<li><a href="#">Login</a></li>

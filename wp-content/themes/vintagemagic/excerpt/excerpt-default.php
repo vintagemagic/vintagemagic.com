@@ -20,7 +20,9 @@ if (CFCT_DEBUG) { cfct_banner(__FILE__); }
 
 ?>
 <div id="post-excerpt-<?php the_ID() ?>" <?php post_class('excerpt'); ?>>
-	<p class="entry-title"><a href="<?php the_permalink() ?>" rev="post-<?php the_ID(); ?>"><?php the_title(); ?></a></p>
+	<?php the_post_thumbnail( 'category-thumb' ); ?>
+	<h3 class="entry-title"><a href="<?php the_permalink() ?>" rev="post-<?php the_ID(); ?>"><?php the_title(); ?></a></h3>
+	<p><?php the_excerpt() ?></p>
 	<div class="meta"><?php the_time('M j, Y'); ?> &mdash; 
 
 <?php
