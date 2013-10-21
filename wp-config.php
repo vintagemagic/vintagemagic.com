@@ -1,0 +1,1 @@
+/srv/www/gmtg/vintagemagic.com/docs/shared/wp-config.php
