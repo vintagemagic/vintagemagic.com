@@ -21,7 +21,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 
 <h1><?php printf( __( 'Welcome to WordPress %s' ), $display_version ); ?></h1>
 
-<div class="about-text"><?php printf( __( 'Thank you for updating to WordPress 3.7! You might not notice a thing, and we&#8217;re okay with that.' ), $display_version ); ?></div>
+<div class="about-text"><?php echo str_replace( '3.7', $display_version, __( 'Thank you for updating to WordPress 3.7! You might not notice a thing, and we&#8217;re okay with that.' ) ); ?></div>
 
 <div class="wp-badge"><?php printf( __( 'Version %s' ), $display_version ); ?></div>
 
@@ -34,6 +34,14 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 		<?php _e( 'Freedoms' ); ?>
 	</a>
 </h2>
+
+<div class="changelog point-releases">
+	<h3><?php echo _n( 'Maintenance Release', 'Maintenance Releases', 1 ); ?></h3>
+	<p><?php printf( _n( '<strong>Version %1$s</strong> addressed %2$s bug.',
+		'<strong>Version %1$s</strong> addressed %2$s bugs.', 11 ), '3.7.1', number_format_i18n( 11 ) ); ?>
+		<?php printf( __( 'For more information, see <a href="%s">the release notes</a>.' ), 'http://codex.wordpress.org/Version_3.7.1' ); ?>
+ 	</p>
+</div>
 
 <div class="changelog">
 	<h3><?php _e( 'Background Updates' ); ?></h3>
@@ -52,23 +60,36 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 			<p><?php _e( 'You&#8217;ll still need to click &#8220;Update Now&#8221; once WordPress 3.8 is released, but we&#8217;ve never had more confidence in that beautiful blue button.' ); ?></p>
 		</div>
 		<?php
-			$can_auto_update = wp_http_supports( 'ssl' );
+		if ( current_user_can( 'update_core' ) ) {
+			$future_minor_update = (object) array(
+				'current'       => $wp_version . '.1.next.minor',
+				'version'       => $wp_version . '.1.next.minor',
+				'php_version'   => $required_php_version,
+				'mysql_version' => $required_mysql_version,
+			);
+			require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+			$updater = new WP_Automatic_Updater;
+			$can_auto_update = wp_http_supports( array( 'ssl' ) ) && $updater->should_update( 'core', $future_minor_update, ABSPATH );
+
 			if ( $can_auto_update ) {
-				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-				$upgrader = new WP_Automatic_Updater;
-				$future_minor_update = (object) array(
-					'current'       => $wp_version . '.1.next.minor',
-					'version'       => $wp_version . '.1.next.minor',
-					'php_version'   => $required_php_version,
-					'mysql_version' => $required_mysql_version,
-				);
-				$can_auto_update = $upgrader->should_update( 'core', $future_minor_update, ABSPATH );
+				echo '<p class="about-auto-update cool">' . __( 'This site <strong>is</strong> able to apply these updates automatically. Cool!' ). '</p>';
+
+			// If the updater is disabled entirely, don't show them anything.
+			} elseif ( ! $updater->is_disabled() ) {
+				echo '<p class="about-auto-update">';
+				// If this is is filtered to false, they won't get emails, so don't claim we will.
+				// Assumption: If the user can update core, they can see what the admin email is.
+
+				/** This filter is documented in wp-admin/includes/class-wp-upgrader.php */
+				if ( apply_filters( 'send_core_update_notification_email', true, $future_minor_update ) ) {
+					printf( __( 'This site <strong>is not</strong> able to apply these updates automatically. But we&#8217;ll email %s when there is a new security release.' ), esc_html( get_site_option( 'admin_email' ) ) );
+				} else {
+					_e( 'This site <strong>is not</strong> able to apply these updates automatically.' );
+				}
+				echo '</p>';
 			}
-			if ( $can_auto_update ) : ?>
-				<p class="about-auto-update cool"><?php _e( 'This site <strong>is</strong> able to apply these updates automatically. Cool!' ); ?></p>
-			<?php else : ?>
-				<p class="about-auto-update"><?php printf( __( 'This site <strong>is not</strong> able to apply these updates automatically. But we&#8217;ll email %s when there is a new security release.' ), esc_html( get_site_option( 'admin_email' ) ) ); ?></p>
-		<?php endif; ?>
+		}
+		?>
 	</div>
 </div>
 

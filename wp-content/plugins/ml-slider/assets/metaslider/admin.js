@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 
-    jQuery("#ms-pro-meta-link-wrap").appendTo('#screen-meta-links');
+    jQuery("#ms-pro-meta-link-wrap").appendTo('#screen-meta-links').show();
 
     // Enable the correct options for this slider type
     var switchType = function(slider) {
@@ -51,6 +51,48 @@ jQuery(document).ready(function($) {
     jQuery('.metaslider .left table').live('updateSlideOrder', function(event) {
         jQuery('tr', this).each(function() {
             jQuery('input.menu_order', jQuery(this)).val(jQuery(this).index());
+        });
+    });
+
+    // bind an event to the slides table to update the menu order of each slide
+    jQuery('.metaslider .left table').live('resizeSlides', function(event) {
+        var slideshow_width = jQuery('input.width').val();
+        var slideshow_height = jQuery('input.height').val();
+
+        jQuery("tr.slide input[name='resize_slide_id']", this).each(function() {
+            $this = jQuery(this);
+
+            var thumb_width = $this.attr('data-width');
+            var thumb_height = $this.attr('data-height');
+
+            if ((thumb_width != slideshow_width || thumb_height != slideshow_height)) {
+                $this.attr('data-width', slideshow_width);
+                $this.attr('data-height', slideshow_height);
+
+                var resizing = jQuery('<div class="resize_overlay" />');
+                $this.parent().parent().children('.col-1').children('.thumb').append(resizing);
+
+                var data = {
+                    action: 'resize_image_slide',
+                    slider_id: window.parent.metaslider_slider_id,
+                    slide_id: $this.attr('data-slide_id'),
+                    _wpnonce: metaslider.resize_nonce
+                };
+
+                jQuery.ajax({   
+                    type: "POST",
+                    data : data,
+                    cache: false,
+                    url: metaslider.ajaxurl,
+                    success: function(data) {
+                        if (console && console.log) {
+                            console.log(data);
+                        }
+                        
+                        resizing.remove();
+                    }   
+                });
+            }
         });
     });
 
@@ -153,9 +195,18 @@ jQuery(document).ready(function($) {
             cache: false,
             url: url,
             success: function(data) {
-                // update the slides with the response html
-                $(".metaslider .left tbody").html($(".metaslider .left tbody", data).html());
-                
+                var response = jQuery(data);
+                jQuery(".metaslider .left table").trigger('resizeSlides');
+
+                jQuery("button[data-thumb]", response).each(function() {
+                    var $this = jQuery(this);
+                    var editor_id = $this.attr('data-editor_id');
+                    jQuery("button[data-editor_id=" + editor_id + "]")
+                        .attr('data-thumb', $this.attr('data-thumb'))
+                        .attr('data-width', $this.attr('data-width'))
+                        .attr('data-height', $this.attr('data-height'));
+                });
+
                 fixIE10PlaceholderText();
 
                 if (button.id === 'preview') {
