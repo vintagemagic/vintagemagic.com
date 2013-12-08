@@ -27,53 +27,55 @@ get_header();
 		<div class="box-homepage">
 			<h2 class="title-homepage">Player Articles</h2>
 			<ul class="list-article">
-				<li>
-					<img src="<?php bloginfo('template_url') ?>/images/img-1.jpg" alt="" />
-					<h3><a href="#">Hurkyll's Recall: Original Art</a></h3>
-					<p>Global art by Nene Thomas for the Magic: the Gathering Amntiques expansion set. <a href="#">See more &gt;&gt;</a>
-				</li>
-				<li>
-					<img src="<?php bloginfo('template_url') ?>/images/img-1.jpg" alt="" />
-					<h3><a href="#">Vestibulum Luctus Nulla Nec</a></h3>
-					<p>Donec risus metus, sodales vitae tellus quis, egestas hendrerit nibh. Vivamus nisi dui, vestibulum a ultricies in, elementum nec purus. Donec risus metus, sodales vitae tellus quis, egestas hendrerit nibh. <a href="#">See more &gt;&gt;</a>
-				</li>
+
+				<?php query_posts('category_name=player&showposts=3');
+
+				while (have_posts()) {
+					the_post();
+					cfct_template_file('content', 'home-img-teaser');
+				}
+
+				wp_reset_query(); ?>
 			</ul>
 		</div>
 		<div class="box-homepage">
 			<h2 class="title-homepage">The Collector</h2>
 			<ul class="list-article">
-				<li>
-					<img src="<?php bloginfo('template_url') ?>/images/img-1.jpg" alt="" />
-					<h3><a href="#">Vestibulum Luctus Nulla Nec</a></h3>
-					<p>Donec risus metus, sodales vitae tellus quis, egestas hendrerit nibh. Vivamus nisi dui, vestibulum a ultricies in, elementum nec purus. Donec risus metus, sodales vitae tellus quis, egestas hendrerit nibh. <a href="#">See more &gt;&gt;</a>
-				</li>
-				<li>
-					<img src="<?php bloginfo('template_url') ?>/images/img-1.jpg" alt="" />
-					<h3><a href="#">Vestibulum Luctus Nulla Nec</a></h3>
-					<p>Donec risus metus, sodales vitae tellus quis, egestas hendrerit nibh. Vivamus nisi dui, vestibulum a ultricies in, elementum nec purus. Donec risus metus, sodales vitae tellus quis, egestas hendrerit nibh. <a href="#">See more &gt;&gt;</a>
-				</li>
+				<?php query_posts('category_name=collector&showposts=3');
+
+				while (have_posts()) {
+					the_post();
+					cfct_template_file('content', 'home-img-teaser');
+				}
+
+				wp_reset_query(); ?>
 			</ul>
 		</div>
 		<div class="box-homepage last">
 			<h2 class="title-homepage">Artist and Artwork</h2>
 			<ul class="list-artwork">
-				<li>
-					<h3><a href="#">Gencon 2013: Sed id lectus sed</a></h3>
-					<p>Sed pharetra ultrices magna nec posuere. Aliquam ultricies ornare pulvinar. Sed nec dignissim mi, a rutrum tortor.</p>
-				</li>
-				<li>
-					<h3><a href="#">Gencon 2013: Sed id lectus sed</a></h3>
-					<p>Sed pharetra ultrices magna nec posuere. Aliquam ultricies ornare pulvinar. Sed nec dignissim mi, a rutrum tortor.</p>
-				</li>
-				<li>
-					<h3><a href="#">Gencon 2013: Sed id lectus sed</a></h3>
-					<p>Sed pharetra ultrices magna nec posuere. Aliquam ultricies ornare pulvinar. Sed nec dignissim mi, a rutrum tortor.</p>
-				</li>
+				<?php query_posts('category_name=art&showposts=3');
+
+				while (have_posts()) {
+					the_post();
+					cfct_template_file('content', 'home-art-teaser');
+				}
+
+				wp_reset_query(); ?>
 			</ul>
 			<ul class="list-tournament">
-				<li><a href="#">June 21: Vintage 5k Washington, D.C.</a></li>
+				<?php 
+				$args = array( 'post_type' => 'event', 'posts_per_page' => 3 );
+				$loop = new WP_Query( $args );
+				while ( $loop->have_posts() ) : $loop->the_post();					
+					echo '<li><a href="#">';
+					the_title();
+					echo '</li>';
+				endwhile;
+				?>
+				<!-- <li><a href="#">June 21: Vintage 5k Washington, D.C.</a></li>
 				<li><a href="#">August 15-18: Gencon, Indianapolis, IN</a></li>
-				<li><a href="#">September 6: Vintage 5k, Baltimore, MD</a></li>
+				<li><a href="#">September 6: Vintage 5k, Baltimore, MD</a></li> -->
 			</ul>
 			<a href="#" class="link-tournament">Find tournaments near you &gt;&gt;</a>
 		</div>

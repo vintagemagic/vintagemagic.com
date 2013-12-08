@@ -161,4 +161,18 @@ function my_excerpt_length($length) {
 	return 20; // Or whatever you want the length to be.
 }
 
+add_action( 'init', 'create_post_type' );
+function create_post_type() {
+	register_post_type( 'vintagemagic_event',
+		array(
+			'labels' => array(
+				'name' => __( 'Events' ),
+				'singular_name' => __( 'Event' )
+			),
+		'public' => true,
+		'has_archive' => true,
+		)
+	);
+}
+
 ?>
