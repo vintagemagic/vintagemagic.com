@@ -203,7 +203,7 @@ body {
 #content {
 	width:912px;
 }
-#slideshow {
+#slideshow, .homepage-slider {
 	overflow:hidden;
 	position: relative;
 	margin:0 0 2px 0;
@@ -259,7 +259,7 @@ html[xmlns] .slides {display: block;}
 .flexslider ul li {
 	position: relative;
 }
-.panel-slideshow {
+.panel-slideshow, .caption-wrap {
 	position: absolute;
 	z-index:10;
 	width:900px;
@@ -269,30 +269,31 @@ html[xmlns] .slides {display: block;}
 	background:rgba(1,22,43,0.6);
 	padding:7px 0 0 12px;
 }
-.panel-slideshow h3 {
+.panel-slideshow h3, .caption-wrap h3 {
 	font-size:16px;
 	color:#fff;
 } 
-.panel-slideshow p {
+.panel-slideshow p, .caption-wrap p{
 	font-size:14px;
 	color:#fff;
 }
-#slideshow .flex-control-nav {
+#slideshow .flex-control-nav, .homepage-slider .flex-control-nav{
 	position: absolute;
+	z-index:20;
 	left:743px;
 	bottom:-6px;
 	margin:0;
 }
-#slideshow .flex-control-nav li {
+#slideshow .flex-control-nav li, .homepage-slider .flex-control-nav li {
 	float:left;
 	font-family: Georgia, Garamond, serif;
 	font-size:20px;
 	margin:0 6px;
 }
-#slideshow .flex-control-nav li a {
+#slideshow .flex-control-nav li a, .homepage-slider .flex-control-nav li a {
 	color:#fff;
 }
-#slideshow .flex-prev {
+#slideshow .flex-prev, .homepage-slider .flex-prev  {
 	width:12px;
 	height: 18px;
 	background:url(../images/slide-left.png) no-repeat;
@@ -300,8 +301,9 @@ html[xmlns] .slides {display: block;}
 	text-indent: -9999px;
 	left:723px;
 	bottom:15px;
+	z-index:20;
 }
-#slideshow .flex-next {
+#slideshow .flex-next, .homepage-slider .flex-next {
 	width:12px;
 	height: 18px;
 	background:url(../images/slide-right.png) no-repeat;
@@ -309,6 +311,7 @@ html[xmlns] .slides {display: block;}
 	text-indent: -9999px;
 	left:863px;
 	bottom:15px;
+	z-index:20;
 }
 .box-homepage {
 	width:301px;

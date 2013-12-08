@@ -23,40 +23,7 @@ get_header();
 ?>
 
 <div id="content">
-		<div id="slideshow" class="flexslider">
-			<ul class="slides">
-				<li><img src="<?php bloginfo('template_url') ?>/images/slide-1.jpg" alt="" />
-					<div class="panel-slideshow">
-						<h3>"Ayeshka Tanaka" by Bryon Wackitz</h3>
-						<p>Original Artwork for the 1994 MTG Magic: The Gathering Legends Expansion Sets</p>
-					</div>
-				</li>
-				<li><img src="<?php bloginfo('template_url') ?>/images/slide-1.jpg" alt="" />
-					<div class="panel-slideshow">
-						<h3>"Ayeshka Tanaka" by Bryon Wackitz</h3>
-						<p>Original Artwork for the 1994 MTG Magic: The Gathering Legends Expansion Sets</p>
-					</div>
-				</li>
-				<li><img src="<?php bloginfo('template_url') ?>/images/slide-1.jpg" alt="" />
-					<div class="panel-slideshow">
-						<h3>"Ayeshka Tanaka" by Bryon Wackitz</h3>
-						<p>Original Artwork for the 1994 MTG Magic: The Gathering Legends Expansion Sets</p>
-					</div>
-				</li>
-				<li><img src="<?php bloginfo('template_url') ?>/images/slide-1.jpg" alt="" />
-					<div class="panel-slideshow">
-						<h3>"Ayeshka Tanaka" by Bryon Wackitz</h3>
-						<p>Original Artwork for the 1994 MTG Magic: The Gathering Legends Expansion Sets</p>
-					</div>
-				</li>
-				<li><img src="<?php bloginfo('template_url') ?>/images/slide-1.jpg" alt="" />
-					<div class="panel-slideshow">
-						<h3>"Ayeshka Tanaka" by Bryon Wackitz</h3>
-						<p>Original Artwork for the 1994 MTG Magic: The Gathering Legends Expansion Sets</p>
-					</div>
-				</li>
-			</ul>
-		</div>
+		<?php echo do_shortcode("[metaslider id=22]"); ?>
 		<div class="box-homepage">
 			<h2 class="title-homepage">Player Articles</h2>
 			<ul class="list-article">

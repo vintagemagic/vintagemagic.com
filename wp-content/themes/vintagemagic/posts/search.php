@@ -31,16 +31,27 @@ else {
 
 ?>
 
+
 <div id="content">
+	<div id="main-content">
+			<h1><?php printf(__('Search Results for: %s', 'carrington-text'), $search_title); ?></h1>
+			<?php
 
-	<h1><?php printf(__('Search Results for: %s', 'carrington-text'), $search_title); ?></h1>
+			cfct_loop();
+			cfct_misc('nav-posts');
 
-<?php
+			?>
+			
+			
+			<div class="clear"></div>
+		</div>
+		<div id="sidebar">
+			<?php
+				get_sidebar();
+			?>
+		</div>
+		<div class="clear"></div>
 
-cfct_loop();
-cfct_misc('nav-posts');
-
-?>
 
 </div>
 

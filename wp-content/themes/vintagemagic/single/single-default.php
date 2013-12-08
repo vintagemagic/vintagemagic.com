@@ -55,11 +55,9 @@ get_header();
 		?>
 	</div>
 	<div id="sidebar">
-		<ul id="list-ads-sidebar">
-			<li><a href="#"><img src="<?php bloginfo('template_url') ?>/images/img-4.jpg" alt="" /></a></li>
-			<li><a href="#"><img src="<?php bloginfo('template_url') ?>/images/img-4.jpg" alt="" /></a></li>
-			<li><a href="#"><img src="<?php bloginfo('template_url') ?>/images/img-4.jpg" alt="" /></a></li>
-		</ul>
+		<?php
+			get_sidebar();
+		?>
 	</div>
 	<div class="clear"></div>
 
@@ -73,8 +71,6 @@ get_header();
 </div>
 
 <?php 
-
-// get_sidebar();
 
 get_footer();
 

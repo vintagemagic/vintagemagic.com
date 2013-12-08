@@ -154,6 +154,7 @@ add_theme_support( 'post-thumbnails' );
 
 add_image_size( 'category-thumb', 283, 72, true );
 add_image_size( 'article-thumb', 650, 300, true );
+add_image_size( 'homepage-slider', 912, 385, true );
 
 add_filter('excerpt_length', 'my_excerpt_length');
 function my_excerpt_length($length) {

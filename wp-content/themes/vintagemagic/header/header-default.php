@@ -37,7 +37,6 @@ $blog_desc = get_bloginfo('description');
 	<link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 	<style type="text/css" media="all">@import "<?php bloginfo('template_url') ?>/css/style.css";</style>
 	<script src="<?php bloginfo('template_url') ?>/js/jquery.js" type="text/javascript"></script>
-	<script src="<?php bloginfo('template_url') ?>/js/jquery.flexslider.js" type="text/javascript"></script>
 	<!--[if IE 7]>
 		<style type="text/css">@import "style/ie7.css";</style>
 	<![endif]-->
@@ -82,9 +81,9 @@ $blog_desc = get_bloginfo('description');
 				<li id="icon-twitter"><a href="#">Twitter</a></li>
 				<li id="icon-youtube"><a href="#">Youtube</a></li>
 			</ul>
-			<form method="post" action="#" id="form-search">
+			<form method="post" action="/" id="form-search">
 				<div>
-					<input type="text" name="search" class="input" /><input type="submit" name="submit-search" class="button" value="Search" />
+					<input type="text" name="s" class="input" /><input type="submit" name="submit-search" class="button" value="Search" />
 				</div>
 			</form>
 		</div>
@@ -92,3 +91,5 @@ $blog_desc = get_bloginfo('description');
 		<?php wp_nav_menu( array( 'theme_location' => 'primary', 'container_id'  => 'nav', 'menu_id' => 'nav-main', 'depth' => 1 ) ); ?>
 				
 	</div>
+	<div class="clear"></div>
+	
