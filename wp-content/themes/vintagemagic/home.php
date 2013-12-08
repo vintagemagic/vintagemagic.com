@@ -64,15 +64,16 @@ get_header();
 				wp_reset_query(); ?>
 			</ul>
 			<ul class="list-tournament">
-				<?php 
-				$args = array( 'post_type' => 'event', 'posts_per_page' => 3 );
-				$loop = new WP_Query( $args );
-				while ( $loop->have_posts() ) : $loop->the_post();					
+				<?php query_posts('post_type=event&showposts=3');
+
+				while (have_posts()) {
+					the_post();		
 					echo '<li><a href="#">';
 					the_title();
 					echo '</li>';
-				endwhile;
-				?>
+				}
+				
+				wp_reset_query(); ?>
 				<!-- <li><a href="#">June 21: Vintage 5k Washington, D.C.</a></li>
 				<li><a href="#">August 15-18: Gencon, Indianapolis, IN</a></li>
 				<li><a href="#">September 6: Vintage 5k, Baltimore, MD</a></li> -->
