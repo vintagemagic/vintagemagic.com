@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 
-    jQuery("#ms-pro-meta-link-wrap").appendTo('#screen-meta-links').show();
+    jQuery("#screen-options-link-wrap").appendTo('#screen-meta-links').show();
 
     // Enable the correct options for this slider type
     var switchType = function(slider) {
@@ -16,17 +16,13 @@ jQuery(document).ready(function($) {
         if (jQuery('.theme option:selected').attr('disabled') === 'disabled') {
             jQuery('.theme option:enabled:first').attr('selected', 'selected');
         }
-
-        // slides - set red background on incompatible slides
-        jQuery('.metaslider .slide:not(.' + slider + ')').css('background', '#FFD9D9');
-        jQuery('.metaslider .slide.' + slider).css('background', '');
     };
 
     // enable the correct options on page load
     switchType(jQuery('.metaslider .select-slider:checked').attr('rel'));
 
     // handle slide libary switching
-    jQuery('.metaslider .select-slider').click(function() {
+    jQuery('.metaslider .select-slider').on('click', function() {
         switchType(jQuery(this).attr('rel'));
     });
 
@@ -97,28 +93,23 @@ jQuery(document).ready(function($) {
     });
 
     // show the confirm dialogue
-    jQuery(".confirm").live('click', function() {
+    jQuery(".confirm").on('click', function() {
         return confirm(metaslider.confirm);
     });
 
-    $('.useWithCaution').change(function(){
+    $('.useWithCaution').on('change', function(){
         if(!this.checked) {
-            return alert(metaslider.useWithCaution);
+            alert(metaslider.useWithCaution);
+            return true;
         }
     });
 
-    // show the confirm dialogue
-    jQuery(".toggle").live('click', function(e) {
-        e.preventDefault();
-        jQuery(this).next('.message').toggle();
-    });
-
     // helptext tooltips
-    jQuery(".metaslider .tipsy-tooltip").tipsy({className: 'msTipsy', live: true, delayIn: 500, html: true, fade: true, gravity: 'e'});
-    jQuery(".metaslider .tipsy-tooltip-top").tipsy({live: true, delayIn: 500, html: true, fade: true, gravity: 'se'});
+    jQuery(".metaslider .tipsy-tooltip").tipsy({className: 'msTipsy', live: true, delayIn: 500, html: true, gravity: 'e'});
+    jQuery(".metaslider .tipsy-tooltip-top").tipsy({live: true, delayIn: 500, html: true, gravity: 'se'});
 
     // Select input field contents when clicked
-    jQuery(".metaslider .shortcode input").click(function() {
+    jQuery(".metaslider .shortcode input, .metaslider .shortcode textarea").on('click', function() {
         this.select();
     });
 
@@ -139,7 +130,7 @@ jQuery(document).ready(function($) {
 
     // return lightbox width
     var getLightboxWidth = function() {
-        var width = parseInt(jQuery('input.width').val(), 10) + 'px';
+        var width = parseInt(jQuery('input.width').val(), 10);
 
         if (jQuery('#carouselMode').is(':checked')) {
             width = '75%';
@@ -152,14 +143,15 @@ jQuery(document).ready(function($) {
     var getLightboxHeight = function() {
         var height = parseInt(jQuery('input.height').val(), 10);
 
-        if (!isNaN(height)) {
-            height = height + 80 + 'px'
-        } else {
+        if (isNaN(height)) {
             height = '70%';
+        } else {
+        	height = height + 50;
         }
 
         return height;
     };
+
 
     // IE10 treats placeholder text as the actual value of a textarea
     // http://stackoverflow.com/questions/13764607/html5-placeholder-attribute-on-textarea-via-jquery-in-ie10
@@ -171,8 +163,20 @@ jQuery(document).ready(function($) {
         });
     }
 
+    jQuery(".metaslider .toggle h3").on('click', function() {
+    	$(this).parent().toggleClass('closed');
+    });
+
+    jQuery('.metaslider').on('click', 'ul.tabs li', function() {
+    	var tab = $(this);
+    	tab.parent().parent().children('.tabs-content').children('div.tab').hide();
+    	tab.parent().parent().children('.tabs-content').children('div.'+tab.attr('rel')).show();
+    	tab.siblings().removeClass('selected');
+    	tab.addClass('selected');
+    });
+
     // AJAX save & preview
-    jQuery(".metaslider form").find("input[type=submit]").click(function(e) {
+    jQuery(".metaslider form").find("input[type=submit]").on('click', function(e) {
         e.preventDefault();
 
         // update slide order

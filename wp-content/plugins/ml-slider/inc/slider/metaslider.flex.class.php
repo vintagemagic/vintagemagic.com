@@ -19,6 +19,7 @@ class MetaFlexSlider extends MetaSlider {
 
         add_filter('metaslider_flex_slider_parameters', array($this, 'enable_carousel_mode'), 10, 2);
         add_filter('metaslider_flex_slider_parameters', array($this, 'enable_easing'), 10, 2);
+        add_filter('metaslider_flex_slider_javascript_before', array($this, 'no_conflict_add_flexslider_class'), 9, 2);
         add_filter('metaslider_css', array($this, 'get_carousel_css'), 11, 3);
         add_filter('metaslider_css_classes', array($this, 'remove_bottom_margin'), 11, 3);
         
@@ -51,7 +52,27 @@ class MetaFlexSlider extends MetaSlider {
         return $options;
     }
 
+    /**
+     * If 'No Conflict' mode is enabled, the slideshow is output without the 'flexslider' class.
+     * This stops themes and plugins from being able to call $('.flexslider').flexslider({}); on Meta
+     * Slider slideshows. Only once the Meta Slider javascript is executed is the flexslider class 
+     * added to the container, so not to break custom CSS for existing users.
+     *
+     * @since 2.6-beta
+     * @param array $options
+     * @param integer $slider_id
+     * @return array $options
+     */
+    public function no_conflict_add_flexslider_class($js, $slider_id) {
+    	if ($this->get_setting('noConflict') == 'true') {
+    		$js .= "$('#metaslider_{$slider_id}').addClass('flexslider'); // theme/plugin conflict avoidance";
+    	}
 
+        // we don't want this filter hanging around if there's more than one slideshow on the page
+        remove_filter('metaslider_flex_slider_javascript_before', array($this, 'add_flexslider_class'), 9, 2);
+        
+        return $js;
+    }
 
     /**
      * Ensure CSS transitions are disabled when easing is enabled.
@@ -156,7 +177,9 @@ class MetaFlexSlider extends MetaSlider {
      * @return string slider markup.
      */
     protected function get_html() {
-        $return_value = "<div id=\"" . $this->get_identifier() . "\" class=\"flexslider\">";
+    	$class = $this->get_setting('noConflict') == 'true' ? "" : ' class="flexslider"';
+
+        $return_value = '<div id="' . $this->get_identifier() . '"' . $class . '>';
         $return_value .= "\n            <ul class=\"slides\">";
 
         foreach ($this->slides as $slide) {

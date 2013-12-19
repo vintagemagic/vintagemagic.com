@@ -23,20 +23,19 @@ get_header();
 ?>
 
 <div id="content">
-
+	<div id="page-content">
+		<article class="static-page">
 <?php
 
 cfct_loop();
 
-comments_template();
-
 ?>
-
+		</article>
+	</div>
+	<div class="clear"></div>
 </div>
 
 <?php 
-
-get_sidebar();
 
 get_footer();
 

@@ -20,6 +20,9 @@ if (CFCT_DEBUG) { cfct_banner(__FILE__); }
 
 ?>
 <div id="post-<?php the_ID(); ?>">
+	<div class="alignright">
+	<?php the_post_thumbnail( 'search-thumb' ); ?>
+	</div>
 	<h3 class="entry-title"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h3>
 <?php
 

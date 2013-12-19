@@ -40,23 +40,10 @@ $blog_desc = get_bloginfo('description');
 	<!--[if IE 7]>
 		<style type="text/css">@import "style/ie7.css";</style>
 	<![endif]-->
-	<script type="text/javascript">
-	$(document).ready(function (){
-		$('#slideshow.flexslider').flexslider({
-            animation: "slide",
-            pauseOnAction: true
-        });
-	});
-	</script>
-
-
-	
-
 <?php
 	wp_head(); 
 ?>
 </head>
-
 <body class="home">
 <div id="wrapper">
 	<div id="header">
@@ -71,25 +58,25 @@ $blog_desc = get_bloginfo('description');
 		<a href="/" id="logo">Vintage Magic</a>
 		<div id="header-content">
 			<ul id="nav-member">
-				<li><a href="#">Login</a></li>
-				<li><a href="#">Become a Member</a></li>
+				<li><a href="/wp-login">Login</a></li>
+				<li><a href="/membership">Become a Member</a></li>
 			</ul>
 			<ul id="nav-social">
-				<li id="icon-cart"><a href="#">Shopping Cart</a></li>
-				<li id="icon-facebook"><a href="#">Facebook</a></li>
-				<li id="icon-instagram"><a href="#">Instagram</a></li>
-				<li id="icon-twitter"><a href="#">Twitter</a></li>
-				<li id="icon-youtube"><a href="#">Youtube</a></li>
+				<li id="icon-cart"><a href="/cart/">Shopping Cart</a></li>
+				<li id="icon-facebook"><a href="www.facebook.com" target="_bland">Facebook</a></li>
+				<li id="icon-instagram"><a href="www.instagram.com" target="_bland">Instagram</a></li>
+				<li id="icon-twitter"><a href="www.twitter.com" target="_bland">Twitter</a></li>
+				<li id="icon-youtube"><a href="www.youtube.com" target="_bland">Youtube</a></li>
 			</ul>
 			<form method="post" action="/" id="form-search">
 				<div>
-					<input type="text" name="s" class="input" /><input type="submit" name="submit-search" class="button" value="Search" />
+					<input type="text" name="s" class="input" value="<?php echo get_query_var('s') ?>"  />
+					<input type="submit" name="submit-search" class="button" value="Search" />
 				</div>
 			</form>
 		</div>
 		<div class="clear"></div>
-		<?php wp_nav_menu( array( 'theme_location' => 'primary', 'container_id'  => 'nav', 'menu_id' => 'nav-main', 'depth' => 1 ) ); ?>
-				
+		<?php wp_nav_menu( array( 'theme_location' => 'primary', 'container_id'  => 'nav', 'menu_id' => 'nav-main', 'depth' => 1 ) ); ?>				
 	</div>
 	<div class="clear"></div>
 	

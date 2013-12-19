@@ -19,6 +19,8 @@ if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 
 load_theme_textdomain('carrington-text');
 
+add_theme_support( 'woocommerce' );
+
 define('CFCT_DEBUG', false);
 define('CFCT_PATH', trailingslashit(TEMPLATEPATH));
 
@@ -155,6 +157,7 @@ add_theme_support( 'post-thumbnails' );
 add_image_size( 'category-thumb', 283, 72, true );
 add_image_size( 'article-thumb', 650, 300, true );
 add_image_size( 'homepage-slider', 912, 385, true );
+add_image_size( 'search-thumb', 72, 72, false );
 
 add_filter('excerpt_length', 'my_excerpt_length');
 function my_excerpt_length($length) {
